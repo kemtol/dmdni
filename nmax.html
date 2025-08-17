@@ -1,58 +1,87 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Honda Beat 2018 | Siap Dibeli</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kami Beli N-MAX Anda, Harga Bagus Segala Kondisi.</title>
 
-  <!-- ===== Open Graph (WhatsApp preview) ===== -->
-  <meta property="og:title" content="Honda Beat 2018 • Siap Dibeli">
-  <meta property="og:description" content="Butuh Honda Beat area saya saja. Contoh: Rp 11,5 jt • KM 20-30rb • Pajak hidup.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:type" content="website">
+<!-- ===== Open Graph (WhatsApp preview) ===== -->
+<meta property="og:title" content="Honda Beat 2018 • Siap Dibeli">
+<meta property="og:description" content="Butuh Honda Beat area saya saja. Contoh: Rp 11,5 jt • KM 20-30rb • Pajak hidup.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop">
+<meta property="og:url" content="https://example.com/">
+<meta property="og:type" content="website">
 
-  <!-- Bootstrap & jQuery -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap & jQuery -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <style>
-    body{background:#fff}
-    .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover}
-    .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
-    .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
-    .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
-    .dot.active{background:#fff}
-    .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
-    .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
-    .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
-    .btn-ghost{background:#fff;border:1px solid #e5e7eb}
-    .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
-  </style>
+<style>
+  body{background:#fff}
+  .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover}
+  .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
+  .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
+  .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
+  .dot.active{background:#fff}
+  .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
+  .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
+  .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
+  .btn-ghost{background:#fff;border:1px solid #e5e7eb}
+  .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
+
+  /* ===== Modal Lokasi (overlay) ===== */
+  #loc-modal {
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.65);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    visibility: hidden; opacity:0;
+    transition: opacity .25s ease, visibility .25s ease;
+    pointer-events: none;
+  }
+  #loc-modal.active { visibility: visible; opacity:1; pointer-events: auto; }
+  #loc-modal .card {
+    background: #111827; border-radius: 16px; max-width: 480px; width: 92%;
+    padding: 22px; color: #e5e7eb; box-shadow:0 10px 30px rgba(0,0,0,.5)
+  }
+  #loc-modal h1 { margin:0 0 8px; font-size:20px }
+  #loc-modal p { margin:6px 0; color:#9ca3af }
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:600}
+  .primary{background:#16a34a;color:#fff}
+  .secondary{background:#374151;color:#e5e7eb}
+  .danger{background:#dc2626;color:#fff}
+  .ok{background:#052e18;border:1px solid #0a6b33;padding:8px;border-radius:8px;color:#c7ffdf}
+  .hidden{display:none}
+  .field{margin:6px 0}
+  input[readonly]{width:100%;padding:8px;border-radius:8px;border:1px solid #374151;background:#0b1020;color:#e5e7eb}
+  .spinner{display:inline-block;width:1rem;height:1rem;border:.18rem solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Kunci body saat modal aktif */
+  body.lock { overflow:hidden; touch-action:none; }
+</style>
 </head>
 <body>
 
 <div class="container px-0" style="max-width:480px">
   <!-- HERO -->
   <div class="hero">
-    <!-- GANTI ke foto Honda Beat kamu -->
-    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Honda Beat 2018">
+    <img src="/img/n-max.jpg" alt="Honda Beat 2018">
     <div class="pager"><span id="pageNow">1</span> / 5</div>
     <div class="dots" id="dots"></div>
   </div>
 
   <!-- Brand / chip -->
-  <div class="px-3 pt-2">
-    <span class="brand-chip">Mencari Unit • Buyer Only</span>
-  </div>
+  <div class="px-3 pt-2"><span class="brand-chip">Mencari Unit • Buyer Only</span></div>
 
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-start px-3 pt-2">
     <div>
-      <h1 class="h5 mb-1 fw-bold">Honda Beat 2018</h1>
-      <div class="text-muted small">Butuh kondisi mulus, surat lengkap</div>
+      <h1 class="h5 mb-1 fw-bold">Yamaha N-Max Segala Kondisi</h1>
+      <div class="text-muted small">STNK Only, BPKB Only, FUll Paper, Bukan Curian</div>
     </div>
     <div class="d-flex gap-2">
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
@@ -68,7 +97,7 @@
     <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
   </div>
 
-  <!-- Budget + Estimasi Kredit (jika beli kredit) -->
+  <!-- Budget + Estimasi -->
   <div class="px-3 pt-3">
     <div class="fs-5 fw-bold">Budget contoh: Rp 11.500.000</div>
     <div class="credit mt-2 shadow-sm">
@@ -112,93 +141,183 @@
   </div>
 </div>
 
-<!-- ===== Mandatory Location Modal ===== -->
-<div class="modal fade" id="locModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header"><h5 class="modal-title">Aktifkan Lokasi</h5></div>
-      <div class="modal-body">
-        <p class="mb-2">Saya hanya ambil unit di area saya. Untuk lanjut, izinkan akses lokasi.</p>
-        <div class="alert alert-warning d-none" id="locWarn"></div>
-        <ul class="small mb-0">
-          <li>Harus dibuka via <strong>HTTPS</strong>.</li>
-          <li>Jika pernah menolak izin, ubah di pengaturan situs.</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button id="btnReqLoc" class="btn btn-primary w-100">Izinkan Lokasi</button>
-      </div>
+<!-- ===== Modal Lokasi (Gated) ===== -->
+<div id="loc-modal" role="dialog" aria-modal="true" aria-labelledby="loc-title">
+  <!-- STEP 1: Consent -->
+  <main class="card" id="step-consent">
+    <h1 id="loc-title">Verifikasi Lokasi Diperlukan</h1>
+    <p>Kami melaksanakan jual beli kendaraan maka lokasi menentukan harga beli kami, untuk melihat harga dasar penawaran kami silahkan klik berikut</p>
+    <div class="actions">
+      <button class="primary" id="btn-allow"><span class="spinner d-none" id="spin-allow"></span> Izinkan & Lanjutkan</button>
+      <button class="secondary" id="btn-decline">Saya Tidak Setuju</button>
     </div>
-  </div>
+    <p class="small mt-2">Catatan: Geolocation hanya berjalan di situs <strong>HTTPS</strong>. Jika tombol tidak berfungsi, cek koneksi aman.</p>
+  </main>
+
+  <!-- STEP 2: Success (akan auto-close) -->
+  <main class="card hidden" id="step-ok">
+    <h1>Lokasi Diterima</h1>
+    <p class="ok">Terima kasih. Lokasi berhasil diverifikasi.</p>
+    <div class="field"><input id="lat" readonly placeholder="Latitude"></div>
+    <div class="field"><input id="lng" readonly placeholder="Longitude"></div>
+    <div class="field"><input id="acc" readonly placeholder="Akurasi (meter)"></div>
+    <div class="field"><input id="ts"  readonly placeholder="Waktu (ISO)"></div>
+    <p id="post-status" class="mt-2"></p>
+    <p class="small text-muted mt-2" id="auto-close-note">Menutup dalam 1 detik…</p>
+  </main>
+
+  <!-- STEP 3: Denied -->
+  <main class="card hidden" id="step-denied">
+    <h1>Akses Lokasi Ditolak</h1>
+    <p>Halaman tidak dapat dibuka tanpa lokasi. Aktifkan izin lokasi di pengaturan browser, lalu kembali ke halaman ini.</p>
+    <div class="actions">
+      <button class="secondary" id="btn-help">Cara Mengaktifkan Lokasi</button>
+      <button class="danger" id="btn-retry">Coba Lagi</button>
+    </div>
+  </main>
 </div>
 
 <script>
-/* ---------- Dots (dummy slider) ---------- */
-const TOTAL = 5;
-const $dots = $('#dots'); let idx = 1;
-function paintDots(){
-  $dots.empty();
-  for (let i=1;i<=TOTAL;i++){
-    $('<div/>').addClass('dot'+(i===idx?' active':'')).
-      appendTo($dots);
+  /* ====== KONFIG ====== */
+  const POST_ENDPOINT = "";         // contoh: "https://example.com/loc-hook" (biarkan kosong jika tak perlu kirim ke server)
+  const REDIRECT_IF_DENIED = "";    // opsional: isi URL untuk redirect jika denied
+  const REDIRECT_DELAY_MS = 3500;
+  const REQUIRED_ACCURACY_M = 200;  // akurasi maksimum agar boleh lanjut
+  const AUTO_CLOSE_MS = 1000;       // jeda auto-close modal setelah sukses
+
+  /* ====== UTIL ====== */
+  const $ = sel => document.querySelector(sel);
+  const show = el => {
+    ["#step-consent","#step-ok","#step-denied"].forEach(s => $(s).classList.add("hidden"));
+    el.classList.remove("hidden");
+  };
+  const lockBody = on => document.body.classList.toggle("lock", !!on);
+
+  const modal = $("#loc-modal");
+  const els = {
+    consent: $("#step-consent"),
+    ok: $("#step-ok"),
+    denied: $("#step-denied"),
+    lat: $("#lat"), lng: $("#lng"), acc: $("#acc"), ts: $("#ts"),
+    btnAllow: $("#btn-allow"), btnDecline: $("#btn-decline"),
+    btnHelp: $("#btn-help"), btnRetry: $("#btn-retry"),
+    postStatus: $("#post-status"), spinAllow: $("#spin-allow"),
+    autoCloseNote: $("#auto-close-note")
+  };
+
+  function openGate() { modal.classList.add("active"); lockBody(true); }
+  function closeGate() { modal.classList.remove("active"); lockBody(false); }
+
+  function ensureSecureOrigin() {
+    const isSecure = location.protocol === "https:" || location.hostname === "localhost";
+    if (!isSecure) alert("Fitur lokasi memerlukan HTTPS. Silakan akses halaman ini via https://");
   }
-  $('#pageNow').text(idx);
-}
-paintDots();
-$('.hero').on('click',()=>{ idx = (idx % TOTAL) + 1; paintDots(); });
 
-/* ---------- Location gate ---------- */
-/* GANTI ke area kamu */
-const COVERAGE_CENTER = { lat: -6.175392, lon: 106.827153 }; // Monas (contoh)
-const COVERAGE_RADIUS_KM = 25;
-
-function haversine(lat1, lon1, lat2, lon2){
-  const toRad = d => d * Math.PI/180;
-  const R = 6371;
-  const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
-  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-  return 2*R*Math.asin(Math.sqrt(a));
-}
-function showWarn(msg){ $('#locWarn').removeClass('d-none').text(msg); }
-
-function requestLocation(){
-  if (location.protocol !== 'https:' && location.hostname !== 'localhost'){
-    showWarn('Aktifkan HTTPS (Cloudflare Pages sudah HTTPS).');
-    return;
+  async function checkPermission() {
+    if (!("geolocation" in navigator)) {
+      alert("Browser Anda tidak mendukung Geolocation.");
+      return show(els.denied);
+    }
+    if (!("permissions" in navigator)) {
+      return show(els.consent); // Safari/iOS: minta via klik
+    }
+    try {
+      const st = await navigator.permissions.query({ name: "geolocation" });
+      if (st.state === "granted") requestLocation();
+      else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
+      else show(els.consent); // "prompt"
+      st.onchange = () => {
+        if (st.state === "granted") requestLocation();
+        else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
+        else show(els.consent);
+      };
+    } catch {
+      show(els.consent);
+    }
   }
-  if (!navigator.geolocation){ showWarn('Perangkat tidak mendukung geolocation.'); return; }
-  navigator.geolocation.getCurrentPosition(
-    (pos)=>{
-      const {latitude, longitude} = pos.coords;
-      const dist = haversine(latitude, longitude, COVERAGE_CENTER.lat, COVERAGE_CENTER.lon);
-      if (dist <= COVERAGE_RADIUS_KM){
-        localStorage.setItem('buyer_loc', JSON.stringify({latitude, longitude, dist}));
-        bootstrap.Modal.getInstance(document.getElementById('locModal')).hide();
-      }else{
-        showWarn(`Di luar coverage (${dist.toFixed(1)} km). Hanya melayani radius ${COVERAGE_RADIUS_KM} km.`);
-      }
-    },
-    (err)=>{
-      const map = {1:'Izin lokasi ditolak.',2:'Lokasi tidak tersedia.',3:'Timeout permintaan lokasi.'};
-      showWarn(map[err.code] || 'Gagal ambil lokasi.');
-    },
-    {enableHighAccuracy:false, timeout:10000, maximumAge:0}
-  );
-}
 
-$(function(){
-  const saved = localStorage.getItem('buyer_loc');
-  let allowed = false;
-  if (saved){
-    try{
-      const p = JSON.parse(saved);
-      const d = haversine(p.latitude, p.longitude, COVERAGE_CENTER.lat, COVERAGE_CENTER.lon);
-      if (d <= COVERAGE_RADIUS_KM) allowed = true;
-    }catch{}
+  let asking = false;
+  function requestLocation() {
+    if (asking) return;
+    asking = true;
+    els.spinAllow.classList.remove("hidden");
+    navigator.geolocation.getCurrentPosition(onPos, onErr, {
+      enableHighAccuracy: true, timeout: 15000, maximumAge: 0
+    });
   }
-  if (!allowed){ new bootstrap.Modal('#locModal').show(); }
-  $('#btnReqLoc').on('click', requestLocation);
-});
+
+  function onPos(pos) {
+    asking = false;
+    els.spinAllow.classList.add("hidden");
+    const { latitude, longitude, accuracy } = pos.coords;
+    const iso = new Date(pos.timestamp).toISOString();
+
+    els.lat.value = latitude.toFixed(7);
+    els.lng.value = longitude.toFixed(7);
+    els.acc.value = Math.round(accuracy);
+    els.ts.value  = iso;
+
+    if (accuracy > REQUIRED_ACCURACY_M) {
+      show(els.denied);
+      alert(`Akurasi lokasi terlalu besar (±${Math.round(accuracy)} m). Pindah ke area lebih terbuka atau aktifkan GPS High Accuracy, lalu coba lagi.`);
+      return;
+    }
+
+    show(els.ok);
+
+    if (POST_ENDPOINT) {
+      fetch(POST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          latitude, longitude, accuracy, timestamp: iso,
+          userAgent: navigator.userAgent
+        })
+      }).then(r => {
+        els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.";
+      }).catch(() => els.postStatus.textContent = "Gagal kirim ke server.");
+    }
+
+    // Auto-close modal → halaman langsung bisa dipakai
+    setTimeout(() => { closeGate(); }, AUTO_CLOSE_MS);
+  }
+
+  function onErr(err) {
+    asking = false;
+    els.spinAllow.classList.add("hidden");
+    if (err.code === 1) { // PERMISSION_DENIED
+      show(els.denied);
+      maybeRedirectDenied();
+    } else if (err.code === 3) { // TIMEOUT
+      alert("Pengambilan lokasi timeout. Coba lagi di area terbuka atau aktifkan GPS.");
+      show(els.consent);
+    } else { // POSITION_UNAVAILABLE
+      alert("Lokasi tidak tersedia. Pastikan layanan lokasi aktif.");
+      show(els.consent);
+    }
+  }
+
+  function maybeRedirectDenied() {
+    if (REDIRECT_IF_DENIED) {
+      setTimeout(() => { location.href = REDIRECT_IF_DENIED; }, REDIRECT_DELAY_MS);
+    }
+  }
+
+  /* ====== EVENTS ====== */
+  els.btnAllow.addEventListener("click", () => {
+    if (!("geolocation" in navigator)) { alert("Browser tidak mendukung Geolocation."); return; }
+    requestLocation(); // harus via gesture user
+  });
+  els.btnDecline.addEventListener("click", () => { show(els.denied); maybeRedirectDenied(); });
+  els.btnRetry?.addEventListener("click", () => { show(els.consent); });
+  els.btnHelp?.addEventListener("click", () => {
+    alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Ikon gembok → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON (High accuracy), lalu beri izin untuk browser.");
+  });
+
+  /* ====== STARTUP ====== */
+  openGate();          // tampilkan modal & kunci halaman
+  ensureSecureOrigin();// info HTTPS
+  checkPermission();   // cek status izin
 </script>
 </body>
 </html>
