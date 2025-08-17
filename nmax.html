@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Honda Beat 2018 | Siap Dibeli</title>
+
+  <!-- ===== Open Graph (WhatsApp preview) ===== -->
+  <meta property="og:title" content="Honda Beat 2018 • Siap Dibeli">
+  <meta property="og:description" content="Butuh Honda Beat area saya saja. Contoh: Rp 11,5 jt • KM 20-30rb • Pajak hidup.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop">
+  <meta property="og:url" content="https://example.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Bootstrap & jQuery -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    body{background:#fff}
+    .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+    .hero img{width:100%;height:100%;object-fit:cover}
+    .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
+    .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
+    .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
+    .dot.active{background:#fff}
+    .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
+    .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
+    .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
+    .btn-ghost{background:#fff;border:1px solid #e5e7eb}
+    .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
+  </style>
+</head>
+<body>
+
+<div class="container px-0" style="max-width:480px">
+  <!-- HERO -->
+  <div class="hero">
+    <!-- GANTI ke foto Honda Beat kamu -->
+    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Honda Beat 2018">
+    <div class="pager"><span id="pageNow">1</span> / 5</div>
+    <div class="dots" id="dots"></div>
+  </div>
+
+  <!-- Brand / chip -->
+  <div class="px-3 pt-2">
+    <span class="brand-chip">Mencari Unit • Buyer Only</span>
+  </div>
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-start px-3 pt-2">
+    <div>
+      <h1 class="h5 mb-1 fw-bold">Honda Beat 2018</h1>
+      <div class="text-muted small">Butuh kondisi mulus, surat lengkap</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
+      <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Save">♡</button>
+    </div>
+  </div>
+
+  <!-- Badges -->
+  <div class="px-3 pt-2 d-flex flex-wrap gap-2">
+    <span class="badge badge-pill px-3 py-2">⛽ Bensin</span>
+    <span class="badge badge-pill px-3 py-2">🏍️ 110 cc</span>
+    <span class="badge badge-pill px-3 py-2">📍 20.000–30.000 Km (contoh)</span>
+    <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
+  </div>
+
+  <!-- Budget + Estimasi Kredit (jika beli kredit) -->
+  <div class="px-3 pt-3">
+    <div class="fs-5 fw-bold">Budget contoh: Rp 11.500.000</div>
+    <div class="credit mt-2 shadow-sm">
+      <div class="border-bottom p-3 fw-semibold">Preferensi Pembayaran</div>
+      <div class="row g-0 p-3 align-items-center">
+        <div class="col"><div class="text-secondary small">Cash di tempat</div></div>
+        <div class="col-auto fw-bold text-primary">Prioritas</div>
+        <div class="col-12 my-2"></div>
+        <div class="col"><div class="text-secondary small">Atau Kredit</div></div>
+        <div class="col-auto fw-bold text-primary">DP ≥ Rp 2,5 jt <small class="text-primary-emphasis fw-semibold">tenor fleksibel</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kriteria Unit -->
+  <div class="px-3 pt-3 pb-5">
+    <h4 class="h6 fw-semibold">Kriteria Unit</h4>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">Body & rangka utuh, mesin sehat, kelistrikan normal.</p>
+    </div>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">BPKB & STNK lengkap, pajak hidup (boleh mepet).</p>
+    </div>
+    <div class="d-flex align-items-start py-2 border-bottom">
+      <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
+      <p class="mb-0 small">Domisili penjual dalam radius area saya (lokasi wajib aktif).</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bottom Action Bar -->
+<div class="bottom-bar">
+  <div class="container" style="max-width:480px">
+    <div class="d-flex gap-2 py-2">
+      <a class="btn btn-ghost flex-fill fw-bold" href="#"><span class="me-1">💬</span>Chat</a>
+      <a class="btn btn-ghost flex-fill fw-bold" href="tel:+62000000000"><span class="me-1">📞</span>Call</a>
+      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Tawarkan Unit</a>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Mandatory Location Modal ===== -->
+<div class="modal fade" id="locModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header"><h5 class="modal-title">Aktifkan Lokasi</h5></div>
+      <div class="modal-body">
+        <p class="mb-2">Saya hanya ambil unit di area saya. Untuk lanjut, izinkan akses lokasi.</p>
+        <div class="alert alert-warning d-none" id="locWarn"></div>
+        <ul class="small mb-0">
+          <li>Harus dibuka via <strong>HTTPS</strong>.</li>
+          <li>Jika pernah menolak izin, ubah di pengaturan situs.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button id="btnReqLoc" class="btn btn-primary w-100">Izinkan Lokasi</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------- Dots (dummy slider) ---------- */
+const TOTAL = 5;
+const $dots = $('#dots'); let idx = 1;
+function paintDots(){
+  $dots.empty();
+  for (let i=1;i<=TOTAL;i++){
+    $('<div/>').addClass('dot'+(i===idx?' active':'')).
+      appendTo($dots);
+  }
+  $('#pageNow').text(idx);
+}
+paintDots();
+$('.hero').on('click',()=>{ idx = (idx % TOTAL) + 1; paintDots(); });
+
+/* ---------- Location gate ---------- */
+/* GANTI ke area kamu */
+const COVERAGE_CENTER = { lat: -6.175392, lon: 106.827153 }; // Monas (contoh)
+const COVERAGE_RADIUS_KM = 25;
+
+function haversine(lat1, lon1, lat2, lon2){
+  const toRad = d => d * Math.PI/180;
+  const R = 6371;
+  const dLat = toRad(lat2-lat1), dLon = toRad(lon2-lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(a));
+}
+function showWarn(msg){ $('#locWarn').removeClass('d-none').text(msg); }
+
+function requestLocation(){
+  if (location.protocol !== 'https:' && location.hostname !== 'localhost'){
+    showWarn('Aktifkan HTTPS (Cloudflare Pages sudah HTTPS).');
+    return;
+  }
+  if (!navigator.geolocation){ showWarn('Perangkat tidak mendukung geolocation.'); return; }
+  navigator.geolocation.getCurrentPosition(
+    (pos)=>{
+      const {latitude, longitude} = pos.coords;
+      const dist = haversine(latitude, longitude, COVERAGE_CENTER.lat, COVERAGE_CENTER.lon);
+      if (dist <= COVERAGE_RADIUS_KM){
+        localStorage.setItem('buyer_loc', JSON.stringify({latitude, longitude, dist}));
+        bootstrap.Modal.getInstance(document.getElementById('locModal')).hide();
+      }else{
+        showWarn(`Di luar coverage (${dist.toFixed(1)} km). Hanya melayani radius ${COVERAGE_RADIUS_KM} km.`);
+      }
+    },
+    (err)=>{
+      const map = {1:'Izin lokasi ditolak.',2:'Lokasi tidak tersedia.',3:'Timeout permintaan lokasi.'};
+      showWarn(map[err.code] || 'Gagal ambil lokasi.');
+    },
+    {enableHighAccuracy:false, timeout:10000, maximumAge:0}
+  );
+}
+
+$(function(){
+  const saved = localStorage.getItem('buyer_loc');
+  let allowed = false;
+  if (saved){
+    try{
+      const p = JSON.parse(saved);
+      const d = haversine(p.latitude, p.longitude, COVERAGE_CENTER.lat, COVERAGE_CENTER.lon);
+      if (d <= COVERAGE_RADIUS_KM) allowed = true;
+    }catch{}
+  }
+  if (!allowed){ new bootstrap.Modal('#locModal').show(); }
+  $('#btnReqLoc').on('click', requestLocation);
+});
+</script>
+</body>
+</html>
